@@ -1,3 +1,4 @@
+import React, {useState} from "react";
 import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
@@ -6,11 +7,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
 import Form from "../Components/Form";
+import {useForm} from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import {loginInputsValidation} from '../utils/validate';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.common.lightGrey,
     height: "94vh",
+    position:'relative'
   },
  
   link: {
@@ -24,22 +29,49 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
+
+   // functions that come with react form hook
+  // to handle input fields and form submission 
+  const {register, handleSubmit, formState: { errors } } = useForm({
+    mode:'onBlur',
+    resolver:yupResolver(loginInputsValidation)
+  });
+
+    /// when form is submitted inputs values will be sent
+  /// to a redux and dispatch an action to handle the login request
+  const submit = (data) => {
+    console.log(data)
+    
+  };
+
+
+
   return (
     <div className={classes.root}>
-      <Form formTitle='Log in'>
+      <Form form_title='Log in' desc='Log in to our platform' onSubmit={handleSubmit(submit)}>
+      
         <TextField
+        name="email"
+        {...register("email")}
           size="medium"
           variant="outlined"
           fullWidth
           label="Email Address "
+          error ={errors.email?.message? true : false}
+          helperText={errors.email?.message}
+          
         />
         <TextField
+         name="password"
+         {...register("password")}
           size="medium"
           variant="outlined"
           fullWidth
           label="Password "
+          error ={errors.password?.message? true : false}
+          helperText={errors.password?.message}
         />
-        <Button variant="contained" fullWidth color="primary" size="large">
+        <Button type='submit' variant="contained" fullWidth color="primary" size="large">
           Log In
         </Button>
         <Alert className={classes.alert} severity="info">
@@ -57,7 +89,7 @@ const Login = () => {
         >
           Create new account
         </Typography>
-        <Typography className={classes.link} component={Link} variant="body2">
+        <Typography className={classes.link} component={Link} to='/recover-password' variant="body2">
           Forgot password
         </Typography>
       </Form>

@@ -1,3 +1,4 @@
+import React, {useState} from "react";
 import { Container, Typography } from "@material-ui/core";
 import {Box} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "100px",
   },
   form: {
+     
     padding: theme.spacing(3),
     "& > *": {
       marginBottom: theme.spacing(3),
@@ -23,18 +25,36 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     height: "60px",
   },
+  paper:{
+      position:'relative'
+  }
 }));
 
 const Form = (props) => {
   const classes = useStyles();
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  
   return (
     <Container maxWidth="sm" className={classes.container}>
-      <Paper elevation={3}>
-        <form className={classes.form}>
+      <Paper elevation={3} className={classes.paper}>
+        <form {...props} className={classes.form}>
         <div className={classes.from_header}>
               <Box>
                   
-                <Typography variant='h5'>{props.formTitle}</Typography>
+                <Typography variant='h5'>{props.form_title}</Typography>
                 <Typography variant='body2'>{props.desc}</Typography>
               </Box>
               <img className={classes.logo} src={logo}/>
