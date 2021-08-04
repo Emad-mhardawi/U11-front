@@ -3,13 +3,15 @@ import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
 import  TextField  from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
+import { darken, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
 import Form from "../Components/Form";
 import {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {loginInputsValidation} from '../utils/validate';
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux-store/actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,10 +27,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     "&:hover":{textDecoration:'underline'}
   },
+
+
 }));
 
 const Login = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const userLogin= useSelector((state)=> state.userLogin);
+  const {loading, error, userInfo} = userLogin;
 
    // functions that come with react form hook
   // to handle input fields and form submission 
@@ -40,7 +47,7 @@ const Login = () => {
     /// when form is submitted inputs values will be sent
   /// to a redux and dispatch an action to handle the login request
   const submit = (data) => {
-    console.log(data)
+    dispatch(login(data.email, data.password));
     
   };
 
@@ -50,6 +57,10 @@ const Login = () => {
     <div className={classes.root}>
       <Form form_title='Log in' desc='Log in to our platform' onSubmit={handleSubmit(submit)}>
       
+      {error && <Alert  severity="error" >{error} </Alert> }
+        
+      
+     
         <TextField
         name="email"
         {...register("email")}

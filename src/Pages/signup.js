@@ -10,7 +10,9 @@ import { FormControlLabel } from "@material-ui/core";
 import {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {signupInputsValidation} from '../utils/validate';
-
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../redux-store/actions/userActions";
+import Alert from "@material-ui/lab/Alert";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.common.lightGrey,
@@ -28,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Signup = () => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const  userSignup = useSelector((state)=>state.userSignup)
+  const {loading, userInfo, error} = userSignup;
 
 
 // functions that come with react form hook
@@ -41,7 +45,7 @@ const Signup = () => {
     /// when form is submitted inputs values will be sent
   /// to a redux and dispatch an action to handle the login request
   const submit = (data) => {
-    console.log(data)
+    dispatch(signup(data.email, data.password, data.confirmPassword ))
     
   };
 
@@ -49,6 +53,7 @@ const Signup = () => {
   return (
     <div className={classes.root}>
       <Form onSubmit={handleSubmit(submit)} form_title='Register' desc='Register new account in our platform'>
+      {error && <Alert  severity="error" >{error} </Alert> }
         <TextField
           size="medium"
           variant="outlined"
