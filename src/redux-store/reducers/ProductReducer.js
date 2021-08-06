@@ -1,0 +1,40 @@
+import * as actionTypes from '../actions/actionTypes';
+
+const initialState = {products:[], recentProducts:[]}
+
+export const fetchProductsReducer = (state = initialState, action)=>{
+    switch(action.type){
+        case actionTypes.PRODUCTS_FETCH_REQUEST:
+            return{ ...state, loading: true }
+
+        case actionTypes.PRODUCTS_FETCH_SUCCESS:
+            return{ ...state,  loading: false, products: action.payload}
+
+        case actionTypes.PRODUCTS_FETCH_FAIL:
+            return{ ...state, loading: false, error: action.payload }
+
+        default: return state;
+
+    }
+
+}
+
+
+export const fetchRecentProductsReducer = (state = initialState, action)=>{
+    switch(action.type){
+        case actionTypes.RECENT_PRODUCTS_FETCH_REQUEST:
+            return{ ...state, loading: true }
+
+        case actionTypes.RECENT_PRODUCTS_FETCH_SUCCESS:
+            return{ ...state,  loading: false, recentProducts: action.payload}
+
+        case actionTypes.RECENT_PRODUCTS_FETCH_FAIL:
+            return{ ...state, loading: false, error: action.payload }
+
+        default: return state;
+
+    }
+
+}
+
+
