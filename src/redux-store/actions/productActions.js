@@ -58,3 +58,33 @@ export const getRecentProducts =()=>async(dispatch)=>{
         });
   }
   }
+
+
+  export const getProduct =(product_id)=>async(dispatch)=>{
+    try{
+    dispatch({
+        type:actionTypes.PRODUCT_REVIEWS_FETCH_REQUEST
+    });
+    
+    const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+    
+      const {data}= await axiosInstance.get(`/getProduct?product_id=${product_id}`, config)
+      dispatch({
+        type:actionTypes.PRODUCT_REVIEWS_FETCH_SUCCESS,
+        payload: data
+    });
+    
+    }catch(error){
+        dispatch({
+            type: actionTypes.PRODUCT_REVIEWS_FETCH_FAIL,
+            payload:
+              error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message,
+          });
+    }
+    }

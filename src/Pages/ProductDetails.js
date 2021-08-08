@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import React, {useEffect} from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Container, Divider, Grid, Typography } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
@@ -7,6 +7,8 @@ import Rating from '@material-ui/lab/Rating';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import {Link} from 'react-router-dom';
 import ProductReviews from "../Components/ProductReviews";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../redux-store/actions/productActions";
 const useStyles = makeStyles((theme) => ({
     container:{
         marginTop:theme.spacing(4),
@@ -68,7 +70,7 @@ img:{
     position:'absolute',
     width:'100%',
     height:'100%',
-    objectFit:'cover',
+    objectFit:'contain',
     paddingRight:theme.spacing(3),
     [theme.breakpoints.down('sm')]:{
         position:'static',
@@ -82,9 +84,23 @@ link:{
   }));
 
 const ProductDetails = (props)=>{
-    const classes=useStyles()
+    const classes=useStyles();
+    const dispatch = useDispatch();
+  const fetchProduct= useSelector((state)=> state.getProduct);
+  const {loading, error, product} = fetchProduct;
     
+
+  
+    
+
+    const productId = props.match.params.id
+    useEffect(()=>{
+      dispatch(getProduct(productId))
+    },[])
+
 return(
+    <React.Fragment>
+        {product.product !== undefined? 
     <Container maxWidth='lg' className={classes.container}>
     <Typography className={classes.title} variant='h5'>Product Details</Typography>
     <Breadcrumbs aria-label="breadcrumb">
@@ -97,24 +113,20 @@ return(
     <Grid container  spacing={2}>
         <Grid className={classes.contentLeft} xs={12} sm={12} md={6}  item>
           <div className={classes.imgContainer}>
-          <img className={classes.img} src='https://cdn.vox-cdn.com/thumbor/3o5bkD-T3oQ3EIfXotA4k9P97TY=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/22443013/5.png'/>
+          <img className={classes.img} src={product.product.imageUrl}/>
           </div>
         </Grid>
 
 
         <Grid className={classes.contentRight} sm={12} md={6}  item>
             <Typography className={classes.inStock}  component='h3'> IN STOCK</Typography>
-            <Typography className={classes.productName} component='p'>SONY Gtl-750-S</Typography>
-            <Rating value={4} readOnly size='medium'/>
-            <Typography className={classes.price} component='p'>16.19 $</Typography>
+            <Typography className={classes.productName} component='p'>{product.product.productName}</Typography>
+            <Rating value={product.averageStarCount} readOnly size='medium'/>
+            <Typography className={classes.price} component='p'>{product.product.price} $</Typography>
             <Divider light={true} className={classes.divider}/>
             <Typography className={classes.title} variant='h5'>Description</Typography>
             <Typography className={classes.description}  variant='body1'>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-              when an unknown printer took a galley of type and scrambled it to make a type
-               specimen book. It has survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. 
+            {product.product.description}
             </Typography>
             <Divider light={true} className={classes.divider}/>
             <Button
@@ -129,8 +141,10 @@ return(
     </Grid>
 </Paper>
 
-<ProductReviews/>
+<ProductReviews productDetails={product}/>
     </Container>
+    : <p>page not found</p>}
+    </React.Fragment>
 )
 }
 

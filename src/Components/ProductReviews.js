@@ -1,3 +1,4 @@
+import React, {useEffect} from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Divider, Grid } from "@material-ui/core";
 import ReviewForm from "./ReviewForm";
@@ -121,7 +121,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ProductReviews = (props)=>{
-    const classes=useStyles()
+    const classes=useStyles();
+  
 
     const [value, setValue] = React.useState(0);
     const [showReviewForm, setShowReviewForm]= React.useState(false);
@@ -133,46 +134,64 @@ const ProductReviews = (props)=>{
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+    
+    console.log(props.productDetails)
+    
     return(
 
         <Paper className={classes.paper}>
     <Tabs className={classes.tabs} onChange={handleChange}> 
-        <Tab className={classes.tab} label="Review (6230)" />
+        <Tab className={classes.tab} label={`Review (${props.productDetails.all_reviews_count})`} />
         <Tab className={classes.tab} label="Description" />
     </Tabs>
       <TabPanel value={value} index={0}>
         <Grid container justifyContent='center' spacing={4}>
             <Grid item xs='12' md='4' className={classes.averageRating}>
                 <Typography variant='h6'>Average rating</Typography>
-                <Typography color='secondary' variant='h3'>2.5/5</Typography>
-                <Rating size='large' readOnly value={4}/>
-                <Typography>(6.23k reviews)</Typography>
+                <Typography color='secondary' variant='h3'>{props.productDetails.averageStarCount}/5</Typography>
+                <Rating size='large' readOnly value={+props.productDetails.averageStarCount}/>
+                <Typography>{props.productDetails.all_reviews_count} review(s)</Typography>
             </Grid>
             <Grid item xs='12' md='4' className={classes.middle}>
                 <div className={classes.barContainer}>
                     <Typography variant='body1'> 5 stars</Typography>
-                    <LinearProgress className={classes.bar} variant='determinate'  value ='50'/>
-                    <Typography variant='body1'> 7.5k</Typography>
+                    <LinearProgress
+                      className={classes.bar}
+                      variant='determinate'
+                      value ={props.productDetails.fiveStarCount * 100 / props.productDetails.all_reviews_count }/>
+                    <Typography variant='body1'> {props.productDetails.fiveStarCount}</Typography>
                 </div>
                 <div className={classes.barContainer}>
                     <Typography variant='body1'> 4 stars</Typography>
-                    <LinearProgress className={classes.bar} variant='determinate'  value ='30'/>
-                    <Typography variant='body1'> 6.5k</Typography>
+                    <LinearProgress
+                      className={classes.bar}
+                      variant='determinate'
+                      value ={props.productDetails.fourStarCount * 100 / props.productDetails.all_reviews_count }/>
+                    <Typography variant='body1'> {props.productDetails.fourStarCount}</Typography>
                 </div>
                 <div className={classes.barContainer}>
                     <Typography variant='body1'> 3 stars</Typography>
-                    <LinearProgress className={classes.bar} variant='determinate'  value ='10'/>
-                    <Typography variant='body1'> 3.9k</Typography>
+                    <LinearProgress 
+                      className={classes.bar}
+                      variant='determinate'
+                      value ={props.productDetails.threeStarCount * 100 / props.productDetails.all_reviews_count }/>
+                    <Typography variant='body1'> {props.productDetails.threeStarCount}</Typography>
                 </div>
                 <div className={classes.barContainer}>
                     <Typography variant='body1'> 2 stars</Typography>
-                    <LinearProgress className={classes.bar} variant='determinate'  value ='7'/>
-                    <Typography variant='body1'> 5.2k</Typography>
+                    <LinearProgress 
+                      className={classes.bar}
+                      variant='determinate'
+                      value ={props.productDetails.twoStarCount * 100 / props.productDetails.all_reviews_count }/>
+                    <Typography variant='body1'>{props.productDetails.twoStarCount}</Typography>
                 </div>
                 <div className={classes.barContainer}>
                     <Typography variant='body1'> 1 stars</Typography>
-                    <LinearProgress className={classes.bar} variant='determinate'  value ='3'/>
-                    <Typography variant='body1'> 1.5k</Typography>
+                    <LinearProgress
+                      className={classes.bar}
+                      variant='determinate'
+                      value ={props.productDetails.oneStarCount * 100 / props.productDetails.all_reviews_count }/>
+                    <Typography variant='body1'> {props.productDetails.oneStarCount}</Typography>
                 </div>
 
             </Grid>
@@ -193,12 +212,10 @@ const ProductReviews = (props)=>{
         <Divider className={classes.divider}/>
         {showReviewForm && <ReviewForm HideReviewForm={HideReviewForm}/>}
         
-        <Review/>
-      <Review/>
-      <Review/>
-      <Review/>
-      <Review/>
-      <Review/>
+        {props.productDetails.reviews.map((review)=>(
+          <Review review={review}/>
+        ))}
+        
 
 <div className={classes.pagination}>
 <Pagination  count={10} color="primary" />

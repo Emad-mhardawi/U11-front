@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = {products:[], recentProducts:[]}
+const initialState = {products:[], recentProducts:[], product:{reviews:[]}}
 
 export const fetchProductsReducer = (state = initialState, action)=>{
     switch(action.type){
@@ -36,5 +36,23 @@ export const fetchRecentProductsReducer = (state = initialState, action)=>{
     }
 
 }
+
+export const fetchProductReducer = (state = initialState, action)=>{
+    switch(action.type){
+        case actionTypes.PRODUCT_REVIEWS_FETCH_REQUEST:
+            return{ ...state, loading: true }
+
+        case actionTypes.PRODUCT_REVIEWS_FETCH_SUCCESS:
+            return{ ...state,  loading: false, product: action.payload}
+
+        case actionTypes.PRODUCT_REVIEWS_FETCH_FAIL:
+            return{ ...state, loading: false, error: action.payload }
+
+        default: return state;
+
+    }
+
+}
+
 
 

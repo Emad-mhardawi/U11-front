@@ -34,23 +34,19 @@ const Review = (props)=>{
     const classes=useStyles()
 
    
+   
  return(
      <div className={classes.root}>
          <Grid container spacing={2} >
              <Grid className={classes.left} item md='3'>
                  <Avatar alt='user avatar' className={classes.avatar}/>
                  <Typography variant='body2'>Emad Mhardawi</Typography>
-                 <Typography variant='body2'>24 september 2020</Typography>
+                 <Typography variant='body2'>{props.review.createdAt}</Typography>
              </Grid>
 
              <Grid className={classes.right} item md='9'>
-                 <Rating readOnly value={3}/>
-                 <Typography>
-                 is simply dummy text of the printing and typesetting industry.
-                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                  when an unknown printer took a galley of type and scrambled it to make a type
-                   specimen book
-                 </Typography>
+                 <Rating readOnly value={props.review.starsCount}/>
+                 <Typography>{props.review.comment}</Typography>
              </Grid>
 
 
