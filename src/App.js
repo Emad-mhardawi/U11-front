@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import Signup from './Pages/signup';
 import Shop from './Pages/Shop';
 import ProductDetails from './Pages/ProductDetails';
+import Cart from './Pages/Cart';
 const App =()=> {
   return (
     <div className="App">
@@ -16,7 +17,7 @@ const App =()=> {
        <Route exact path='/login' component={Login}/>
        <Route exact path='/signup' component={Signup}/>
        <Route exact path='/products/:id' component={ProductDetails}/>
-        
+       <Route exact path='/cart' component={Cart}/>
       </Layout>
     </Switch>
     </div>

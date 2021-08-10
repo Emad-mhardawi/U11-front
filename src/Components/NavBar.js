@@ -14,6 +14,7 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from "react-router-dom";
 import React from "react";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root:{
     flexGrow:1,
@@ -63,6 +64,9 @@ const NavBar = (props) => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const matchesExtraSmall = useMediaQuery(theme.breakpoints.up('md'));
 
+  const cart= useSelector((state)=> state.cart);
+  const {cartProducts} = cart;
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -87,8 +91,8 @@ const NavBar = (props) => {
             <Tab className={classes.tab} label='Contact Us' component={Link} to='/contact' />
           </Tabs> : null}
           <div className={classes.buttonsRight}>
-            <Badge badgeContent={4} color="primary">
-            <ShoppingCartOutlinedIcon/>
+            <Badge badgeContent={cartProducts.length} color="primary" component={Link} to='/cart'>
+            <ShoppingCartOutlinedIcon />
             </Badge>
             {matchesExtraSmall===true ? <React.Fragment>
               <Button className={classes.button} variant='outlined' color='primary'>Log in</Button>

@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import ProductReviews from "../Components/ProductReviews";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../redux-store/actions/productActions";
+import { addToCart } from "../redux-store/actions/cartActions";
 const useStyles = makeStyles((theme) => ({
     container:{
         marginTop:theme.spacing(4),
@@ -98,6 +99,16 @@ const ProductDetails = (props)=>{
       dispatch(getProduct(productId))
     },[])
 
+    const addToCartHandler = ()=>{
+        const productToCart = {
+            id:product.product._id,
+            productName:product.product.productName,
+            imageUrl:product.product.imageUrl,
+            price: product.product.price,
+            qty: 1,}
+        dispatch(addToCart(productToCart))
+    }
+
 return(
     <React.Fragment>
         {product.product !== undefined? 
@@ -130,6 +141,7 @@ return(
             </Typography>
             <Divider light={true} className={classes.divider}/>
             <Button
+            onClick={addToCartHandler}
             className={classes.button}
             variant='contained'
             color='primary'
@@ -150,7 +162,3 @@ return(
 
 export default ProductDetails
 
-/*
-  <img className={classes.img} src='https://cdn.vox-cdn.com/thumbor/3o5bkD-T3oQ3EIfXotA4k9P97TY=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/22443013/5.png'/>
-
-  */
