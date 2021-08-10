@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.common.lightGrey,
     paddingTop: theme.spacing(4),
+    minHeight:'95vh'
   },
   container: {},
   title: {

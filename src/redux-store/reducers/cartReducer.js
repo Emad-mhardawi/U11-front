@@ -30,7 +30,7 @@ export const cartReducer = (state = initialState, action) => {
          const productToRemove = state.cartProducts.find(product=> product.id === action.payload);
          const newCartProducts = state.cartProducts.filter(product=> product.id !== productToRemove.id)
          //calculating the new total price
-         const newTotalPrice = state.totalPrice - productToRemove.price;
+         const newTotalPrice = state.totalPrice - (productToRemove.price * productToRemove.qty );
          return{
             ...state,
             cartProducts: newCartProducts,
