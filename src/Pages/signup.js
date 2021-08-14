@@ -1,3 +1,5 @@
+import React, {useEffect} from "react";
+import { Redirect, useHistory } from "react-router";
 import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
@@ -32,7 +34,7 @@ const Signup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const  userSignup = useSelector((state)=>state.userSignup)
-  const {loading, userInfo, error} = userSignup;
+  let {loading, userInfo, error} = userSignup;
 
 
 // functions that come with react form hook
@@ -46,10 +48,7 @@ const Signup = () => {
   /// to a redux and dispatch an action to handle the login request
   const submit = (data) => {
     dispatch(signup(data.email, data.password, data.confirmPassword ))
-    
   };
-
-
   return (
     <div className={classes.root}>
       <Form onSubmit={handleSubmit(submit)} form_title='Register' desc='Register new account in our platform'>

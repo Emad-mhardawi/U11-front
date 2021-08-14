@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
 import  TextField  from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
 import Form from "../Components/Form";
 import {useForm} from 'react-hook-form';
@@ -48,8 +48,10 @@ const Login = () => {
   /// to a redux and dispatch an action to handle the login request
   const submit = (data) => {
     dispatch(login(data.email, data.password));
-    
   };
+
+  let history = useHistory()
+  useEffect(()=>userInfo ?history.push('/'): null )
 
 
 

@@ -7,10 +7,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import logo from '../Assets/Images/logo.svg'
 import IconButton  from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Badge, Box, Button, Container, Hidden, Tab, Tabs } from "@material-ui/core";
+import { Badge, Box, Button, Container, Hidden, Tab, Tabs, Typography } from "@material-ui/core";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux-store/actions/userActions";
+import { logout } from "../redux-store/actions/userActions";
+
 const useStyles = makeStyles((theme) => ({
   root:{
     boxShadow:'none'
@@ -54,6 +57,9 @@ const NavBar = (props) => {
   const theme = useTheme();
   const matchesExtraSmall = useMediaQuery(theme.breakpoints.up('md'));
 
+  const dispatch = useDispatch();
+  const userLogin= useSelector((state)=> state.userLogin);
+  const {loading, error, userInfo} = userLogin;
   const cart= useSelector((state)=> state.cart);
   const {cartProducts} = cart;
 
@@ -85,6 +91,7 @@ const NavBar = (props) => {
               <ShoppingCartOutlinedIcon style={{color:'inherit'}}/>
             </Badge>
             <Hidden xsDown>
+              {!userInfo? 
             <Button
               className={classes.button}
               color='primary'  
@@ -95,6 +102,20 @@ const NavBar = (props) => {
               >
                 Log in
               </Button>
+              :
+              <Button
+              className={classes.button}
+              color='primary'  
+              variant='contained' 
+              disableElevation
+              component={Link}
+              to='/profile'
+              >
+                PROFILE
+              </Button>
+            }
+
+            {!userInfo? 
             <Button
               className={classes.button} 
               color='primary' 
@@ -104,6 +125,16 @@ const NavBar = (props) => {
               >
                 Sign up
               </Button>
+              : 
+              <Button
+              className={classes.button} 
+              color='primary' 
+              variant='outlined'
+              onClick={()=>dispatch(logout())}
+              >
+                log out
+              </Button>
+              }
             </Hidden>
           </Box>
         </Container>
