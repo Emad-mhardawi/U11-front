@@ -16,7 +16,8 @@ export const cartReducer = (state = initialState, action) => {
          }
       }else{
          existedItem.qty = ++existedItem.qty;
-         existedItem.price = existedItem.price + addedProduct.price
+         existedItem.price = existedItem.qty * addedProduct.price
+         
          return{
             ...state,
             totalPrice: state.cartProducts.map(product=> product.price).reduce((accumulator, currentValue)=>{

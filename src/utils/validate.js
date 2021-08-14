@@ -26,3 +26,10 @@ export const contactFormValidation = yup.object().shape({
     email: yup.string().email().required(),
     message: yup.string().required("you can't send an empty message"),
 })
+
+export const reviewFormValidation = yup.object().shape({
+    comment: yup.string().required("you can't add an empty comment"),
+    email: yup.string().email().required(),
+    name: yup.string().required(),
+    starsCount: yup.string().required()
+})

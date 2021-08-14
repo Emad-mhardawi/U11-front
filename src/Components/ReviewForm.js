@@ -3,17 +3,12 @@ import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
 import  TextField  from "@material-ui/core/TextField";
-import { darken, makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import Alert from "@material-ui/lab/Alert";
-import Form from "../Components/Form";
+import { makeStyles } from "@material-ui/core/styles";
 import {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {loginInputsValidation} from '../utils/validate';
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux-store/actions/userActions";
+import {reviewFormValidation} from '../utils/validate';
 import Rating from "@material-ui/lab/Rating";
-
+import axiosInstance from "../helpers/axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.common.lightGrey,
@@ -53,35 +48,45 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewForm = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const userLogin= useSelector((state)=> state.userLogin);
-  const {loading, error, userInfo} = userLogin;
+
 
    // functions that come with react form hook
   // to handle input fields and form submission 
   const {register, handleSubmit, formState: { errors } } = useForm({
     mode:'onBlur',
-    resolver:yupResolver(loginInputsValidation)
+    resolver:yupResolver(reviewFormValidation)
   });
 
     /// when form is submitted inputs values will be sent
   /// to a redux and dispatch an action to handle the login request
-  const submit = (data) => {
-    dispatch(login(data.email, data.password));
-    
+  const submit = async (data) => {
+   const res = await axiosInstance.post('/add-product-review',{
+     email:data.email,
+     name:data.name,
+     comment:data.comment,
+     starsCount:data.starsCount,
+     productId: props.productId
+   });
+   console.log(res)
   };
 
+  
+
+ 
 
   
 
 
   return (
       <div>
-    <form className={classes.root}>
+    <form className={classes.root} onSubmit={handleSubmit(submit)}>
         <Typography variant='h5'>Add Review</Typography>
         <div className={classes.addStars}>
             <Typography variant='body1'>Your review about this product:</Typography>
-            <Rating/>
+            <Rating
+            name="starsCount"
+            {...register("starsCount")}
+            />
         </div>
           <TextField
           className={classes.texField}
@@ -89,9 +94,13 @@ const ReviewForm = (props) => {
           size="medium"
           variant="outlined"
           fullWidth
-          label="Email Address"
+          label="Comment"
           multiline
           rows={4}
+          name="comment"
+          {...register("comment")}
+          error ={errors.comment?.message? true : false}
+           helperText={errors.comment?.message}
           />
              <TextField
              className={classes.texField}
@@ -100,6 +109,10 @@ const ReviewForm = (props) => {
           variant="outlined"
           fullWidth
           label="Name"
+          name="name"
+          {...register("name")}
+          error ={errors.name?.message? true : false}
+           helperText={errors.name?.message}
           
           />
 
@@ -110,11 +123,15 @@ className={classes.texField}
           variant="outlined"
           fullWidth
           label="Email Address"
+          name="email"
+          {...register("email")}
+          error ={errors.email?.message? true : false}
+           helperText={errors.email?.message}
           
           />
           <div className={classes.buttons}>
           <Button onClick={props.HideReviewForm}  className={classes.button} variant='contained' color='secondary'>Cancel</Button>
-          <Button className={classes.button}  variant='contained' color='primary'>Post Review</Button>
+          <Button type='submit' className={classes.button}  variant='contained' color='primary'>Post Review</Button>
           </div>
     </form>
     <Divider className={classes.divider}/>

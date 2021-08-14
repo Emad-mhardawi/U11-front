@@ -5,36 +5,42 @@ const useStyles = makeStyles((theme) => ({
   root: {
    background: theme.palette.primary.main,
     color:'white',
-    
   },
-  image:{
-    width:'100%',
-  },
-  left:{
-    paddingTop: theme.spacing(8),
-    [theme.breakpoints.down('xs')]:{
-      marginTop: -theme.spacing(6),
-      paddingBottom: theme.spacing(12)
+
+  right:{
+    position:'relative',
+    objectFit:'cover',
+    height:'35rem',
+    [theme.breakpoints.down('sm')]:{
+      height:'25rem'
     }
   },
-button:{
-  marginTop:theme.spacing(3),
-  [theme.breakpoints.down('sm')]:{
-    
-    marginBottom: theme.spacing(6)
-  }
-},
-text:{
-  paddingTop:theme.spacing(10),
-  [theme.breakpoints.down('sm')]:{
-    fontSize:'2.5rem',
-    paddingTop:theme.spacing(6),
+  left:{
+
   },
-  [theme.breakpoints.down('xs')]:{
-    fontSize:'2rem',
-    paddingTop:theme.spacing(0),
+  img:{
+    width:'100%',
+    height:'100%',
+    position:'absolute',
+    top:'50%',
+    left:'50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  texContainer:{
+    marginTop:theme.spacing(8),
+    [theme.breakpoints.down('xs')]:{
+      marginTop: '-40px',
+      paddingBottom:theme.spacing(2),
+      textAlign:'center'
+    }
+  },
+  text:{
+    paddingBottom:theme.spacing(2),
+    [theme.breakpoints.down('sm')]:{
+      fontSize:'3rem'
+    }
   }
-}
+
 
 }));
 
@@ -42,13 +48,14 @@ const Header = () => {
   const classes = useStyles();
   return (
     <div className={classes.root} >
-      <Container maxWidth='lg' >
-        <Grid container direction='row-reverse' spacing={1}>
-          <Grid className={classes.right} item xs={12} sm={6}>
-            <img className={classes.image} src={heroImage}/>
+      <Container maxWidth='lg'>
+        <Grid container spacing={1} direction='row-reverse'>
+          <Grid item xs={12} sm={6} className={classes.right}>
+            <img className={classes.img} src={heroImage} alt='headphone hero'/>
           </Grid>
-          <Grid className={classes.left} item item xs={12} sm={6}>
-            <Box>
+
+          <Grid item xs={12} sm={6} className={classes.left}>
+          <Box className={classes.texContainer}>
               <Typography variant='h2' className={classes.text}>
               Experience your music like never before.
               </Typography>
@@ -62,5 +69,27 @@ const Header = () => {
 };
 
 export default Header;
+
+
+
+
+
+
+
+/*
+    <Grid container direction='row-reverse' spacing={1}>
+          <Grid className={classes.right} item xs={12} sm={6}>
+            <img className={classes.image} src={heroImage}/>
+          </Grid>
+          <Grid className={classes.left} item item xs={12} sm={6}>
+            <Box>
+              <Typography variant='h2' className={classes.text}>
+              Experience your music like never before.
+              </Typography>
+              <Button disableElevation className={classes.button} variant='contained' color='secondary' size='large'>Descover</Button>
+            </Box>
+          </Grid>
+        </Grid>
+        */
 
 

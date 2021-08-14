@@ -1,33 +1,39 @@
-import { Container, Grid, IconButton, TextField, Typography } from "@material-ui/core";
-import React, {useEffect} from "react";
+import {
+  Breadcrumbs,
+  Container,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../Components/ProductCard";
-import {getProducts} from '../redux-store/actions/productActions'
+import { getProducts } from "../redux-store/actions/productActions";
 import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Info';
-import {Link} from 'react-router-dom'
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Info";
+import { Link } from "react-router-dom";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { addToCart } from "../redux-store/actions/cartActions";
+import ProductFilterBar from "../Components/ProductsFilterBar";
 const useStyles = makeStyles((theme) => ({
-  root:{
+  root: {
     background: theme.palette.common.lightGrey,
   },
-  
-    container: {
+
+  container: {
     paddingTop: "100px",
-    
   },
-  loader:{
-      position:'absolute',
-      left:'50%',
-      top:'50%',
-      
-      
+  loader: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
   },
 
   formControl: {
@@ -36,56 +42,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Shop = ()=>{
-    const classes=useStyles()
-    const dispatch = useDispatch();
-    const fetchProducts = useSelector((state)=>state.fetchProducts)
-    const {loading,error,products } = fetchProducts
-    useEffect(()=>{
-        dispatch(getProducts())
-    },[])
-
-   
-
-    return(
-        <div className={classes.root}>
-    <Container  className={classes.container} >
-    {loading && <CircularProgress  className={classes.loader}  size={60} />}
+const Shop = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const fetchProducts = useSelector((state) => state.fetchProducts);
+  const { loading, error, products } = fetchProducts;
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
 
-      
-    <Grid container spacing={6}  justifyContent='center' alignItems='center'>
-        {products.map((product)=>(
-   <Grid item sm={6} md={4} xs={12} lg={3} >
- <ProductCard
- component={Link}
- to='/kk'
-    productName={product.productName}
-    image={product.imageUrl}
-    description={product.description}
-    rating={product.rating}
-    price={product.price}
-    />
-   </Grid>
-))}
+    /// add product to cart by passing the product object and dispatch a redux action
+    const addToCartHandler = (product)=>{
+      const productToCart = {
+          id:product._id,
+          productName:product.productName,
+          imageUrl:product.imageUrl,
+          price: product.price,
+          qty: 1,}
+      dispatch(addToCart(productToCart))
+  }
+
+  return (
+    <div className={classes.root}>
+      <Container className={classes.container}>
+      <Typography variant='h4'>Shop</Typography>
+        <ProductFilterBar/>
+        
+        {loading && <CircularProgress className={classes.loader} size={60} />}
+
+        <Grid container spacing={6} justifyContent="center" alignItems="center">
+          {products.map((product) => (
+            <Grid key={product._id} item item md={3} sm={4} xs={12}>
+              <ProductCard product={product} addtocart={()=>addToCartHandler(product)} />
             </Grid>
-        </Container>
-        </div>
-    )
-}
+          ))}
+        </Grid>
+      </Container>
+    </div>
+  );
+};
 
 export default Shop;
-
-
-/*
-{products.map((product)=>(
-    <ProductCard
-    productName={product.productName}
-    image={product.imageUrl}
-    description={product.description}
-    rating={product.rating}
-    price={product.price}
-    />
-))}
-
-*/

@@ -20,9 +20,10 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { Button } from "@material-ui/core";
 import {Link} from 'react-router-dom'
+import { addToCart } from "../redux-store/actions/cartActions";
+import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth:'250px',
     '&:hover':{
       transform:'scale(1.03)',
       transition: ` ${theme.transitions.easing.easeOut} 0.5s`
@@ -31,8 +32,10 @@ const useStyles = makeStyles((theme) => ({
     
   },
   media: {
-    height: 200,
-    
+    minHeight: 200,
+    [theme.breakpoints.down('xs')]:{
+      minHeight: 300,
+    }
   },
   actions:{
     display:'flex',
@@ -52,26 +55,34 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = (props) => {
   const classes = useStyles();
+
+
+
   return (
     
     <Card className={classes.root} {...props} >
-      <CardActionArea disableTouchRipple disableRipple >
+      <CardActionArea
+      disableTouchRipple
+      disableRipple
+      component={Link}
+        to={`/products/${props.product._id}`} >
         <CardMedia
         className={classes.media}
-        image={props.image}
+        image={props.product.imageUrl}
         title="Contemplative Reptile"
+        
         />
         <CardContent>
         <Typography className={classes.typo} gutterBottom variant="body1" component="h2">
-        {props.productName}
+        {props.product.productName}
         </Typography>
-        <Rating name="read-only" size='small' value={props.rating} readOnly />
+        <Rating name="read-only" size='small' value={props.product.rating} readOnly />
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
         
-        <Typography variant='h6'>{props.price} $</Typography>
-        <IconButton >
+        <Typography variant='h6'>{props.product.price} $</Typography>
+        <IconButton  onClick={props.addtocart}>
           <AddShoppingCartOutlinedIcon color='primary'/>
         </IconButton>
       </CardActions>

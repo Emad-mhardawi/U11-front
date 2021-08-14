@@ -1,58 +1,50 @@
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import logo from '../Assets/Images/logo.svg'
 import IconButton  from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import logo from '../Assets/Images/logo.svg'
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import theme from "../UI/Theme";
-import { Badge, Button, Tab, Tabs } from "@material-ui/core";
+import { Badge, Box, Button, Container, Hidden, Tab, Tabs } from "@material-ui/core";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from "react-router-dom";
-import React from "react";
 import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root:{
-    flexGrow:1,
-
+    boxShadow:'none'
   },
-  toolbar:{
-    justifyContent:'space-between',
+ container:{
+   padding:0,
+   display:'flex',
+   justifyContent:'space-between',
+   alignItems:'center',
+   paddingBottom:theme.spacing(1),
+   paddingTop:theme.spacing(1)
+  },
+  logoBox:{
+    
+    minWidth:'100px',
+    ...theme.mixins.toolbar,
     position:'relative',
-
+    objectFit:'cover'
   },
   logo:{
-    maxWidth:'45px',
-    [theme.breakpoints.down('xs')]:{
-      position:'absolute',
-      left:'50%',
-      transform:'translateX(-50%)'
-
-    }
+    width:'100%',
+    height:'100%',
+    position:'absolute',
   },
-  tabs:{
-    flexGrow:1,
-   marginLeft:theme.spacing(4)
-  },
-  tab:{
-    minWidth:'5px',
-  },
-  buttonsRight:{
-    display:'flex',
-    alignItems:'center'
-  },
-  accountButton:{
-marginLeft:theme.spacing(1),
-fontSize:'30px'
+  navRight:{
+    '& > *':{marginLeft: theme.spacing(2)}
   },
   button:{
-    marginLeft:theme.spacing(2)
+    borderRadius:0,
+  },
+  tab:{
+    minWidth:'5px'
   }
-  
+
 }));
 
 
@@ -60,65 +52,61 @@ fontSize:'30px'
 const NavBar = (props) => {
   const classes = useStyles();
   const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const matchesExtraSmall = useMediaQuery(theme.breakpoints.up('md'));
 
   const cart= useSelector((state)=> state.cart);
   const {cartProducts} = cart;
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  
 
   return(
     <div className={classes.root}>
-      <AppBar color='transparent' position='static'>
-        <Toolbar  className={classes.toolbar}>
-          {!matches && <IconButton edge='start'>
+      <AppBar color='transparent' position='static' className={classes.root}>
+        <Toolbar className={classes.toolbar}>
+        <Container className={classes.container}>
+          {!matchesExtraSmall && <IconButton edge='start'>
             <MenuIcon onClick={props.drawerOpenHandler}/>
           </IconButton>}
-          <img className={classes.logo} src={logo}/>
-          {matches ===true?  
-          <Tabs className={classes.tabs} value={0}>
+          <Hidden smDown>
+          <Box className={classes.logoBox}>
+            <img className={classes.logo}  src={logo} alt='company logo' />
+          </Box>
+          </Hidden>
+          {matchesExtraSmall &&
+          <Tabs indicatorColor="primary"  value={props.tabValue} onChange={props.handleTabValueChange}>
             <Tab className={classes.tab} label='Home' component={Link} to='/' />
             <Tab className={classes.tab} label='Shop' component={Link} to='/shop'/>
             <Tab className={classes.tab} label='About' component={Link} to='/about' />
             <Tab className={classes.tab} label='Contact Us' component={Link} to='/contact' />
-          </Tabs> : null}
-          <div className={classes.buttonsRight}>
+          </Tabs>
+          }
+          <Box className={classes.navRight}>
             <Badge badgeContent={cartProducts.length} color="primary" component={Link} to='/cart'>
-            <ShoppingCartOutlinedIcon />
+              <ShoppingCartOutlinedIcon style={{color:'inherit'}}/>
             </Badge>
-            {matchesExtraSmall===true ? <React.Fragment>
-              <Button className={classes.button} variant='outlined' color='primary'>Log in</Button>
-            <Button className={classes.button} variant='contained' color='primary'>Sign up</Button>
-            </React.Fragment>
-            :   <div>
-      
-      <IconButton edge='end' aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-            <AccountCircleIcon className={classes.accountButton} color='primary'/>
-          </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </div>
-            }
-            
-            
-          </div>
+            <Hidden xsDown>
+            <Button
+              className={classes.button}
+              color='primary'  
+              variant='contained' 
+              disableElevation
+              component={Link}
+              to='/login'
+              >
+                Log in
+              </Button>
+            <Button
+              className={classes.button} 
+              color='primary' 
+              variant='outlined'
+              component={Link}
+              to='/signup'
+              >
+                Sign up
+              </Button>
+            </Hidden>
+          </Box>
+        </Container>
         </Toolbar>
       </AppBar>
     </div>
@@ -126,10 +114,3 @@ const NavBar = (props) => {
 };
 
 export default NavBar;
-
-
-/*<IconButton edge='start'>
-            <MenuIcon/>
-          </IconButton>
-
-          */
