@@ -16,11 +16,9 @@ export const cartReducer = (state = initialState, action) => {
          }
       }else{
          existedItem.qty = ++existedItem.qty;
-         existedItem.price = existedItem.qty * addedProduct.price
-         
-         return{
+          return{
             ...state,
-            totalPrice: state.cartProducts.map(product=> product.price).reduce((accumulator, currentValue)=>{
+            totalPrice: state.cartProducts.map(product=> product.price * product.qty).reduce((accumulator, currentValue)=>{
               return accumulator + currentValue
             },0)
          }
@@ -28,10 +26,12 @@ export const cartReducer = (state = initialState, action) => {
 
 
       case actionTypes.CART_REMOVE_PRODUCT:
+          /// find the product that will be removed from the cart array
          const productToRemove = state.cartProducts.find(product=> product.id === action.payload);
+         /// return a new cart array without the removed product 
          const newCartProducts = state.cartProducts.filter(product=> product.id !== productToRemove.id)
          //calculating the new total price
-         const newTotalPrice = state.totalPrice - (productToRemove.price * productToRemove.qty );
+         const newTotalPrice = state.totalPrice - (productToRemove.price * productToRemove.qty)
          return{
             ...state,
             cartProducts: newCartProducts,
@@ -40,14 +40,15 @@ export const cartReducer = (state = initialState, action) => {
 
 
       case actionTypes.INCREASE_PRODUCT_QUANTITY:
+          /// find the product that we want to increase its quantity
          const productToIncrease = state.cartProducts.find(product=> product.id === action.payload.id);
          productToIncrease.qty = ++productToIncrease.qty;
-         
          return{
             ...state,
             totalPrice: state.totalPrice + action.payload.price
          }
 
+         /// find the product that we want to decrease its quantity
       case actionTypes.DECREASE_PRODUCT_QUANTITY:
          const productToDecrease = state.cartProducts.find(product=> product.id === action.payload.id);
          productToDecrease.qty = --productToDecrease.qty;
@@ -60,72 +61,3 @@ export const cartReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-
-
-
-
-
-/*
-  
-case actionTypes.CART_ADD_PRODUCT:
-        const product = action.payload;
-    const productExist = state.cartProducts.find(productInCart=> productInCart.id === product.id);
-     
-     
-
-       if(!productExist){
-           return{
-               ...state,
-               cartProducts:[...state.cartProducts, product],
-               totalPrice: state.totalPrice + product.price
-           }
-       }else{
-        productExist.qty=productExist.qty +1
-        productExist.price= product.price * productExist.qty
-       
-        return{
-            ...state,
-            totalPrice: state.totalPrice + product.price
-        }
-       }
-
-
-
-      
-    case actionTypes.CART_REMOVE_PRODUCT:
-        const removedProduct = state.cartProducts.find(product => product.id === action.payload)
-        return{
-            ...state,
-            cartProducts:state.cartProducts.filter(obj => obj.id !== action.payload),
-            totalPrice: state.totalPrice - removedProduct.price
-
-        }
-
-    case actionTypes.INCREASE_PRODUCT_QUANTITY:
-        
-        const UpdatedProductsArray=[];
-        state.cartProducts.map(product=>{
-            if(product.id === action.payload.id){
-                UpdatedProductsArray.push({...product, qty:++product.qty })
-            }else{
-                UpdatedProductsArray.push(product)
-            }
-        })
-
-        console.log(UpdatedProductsArray)
-
-    return{
-        ...state,
-        cartProducts: UpdatedProductsArray
-    }
-
-    case actionTypes.DECREASE_PRODUCT_QUANTITY:
-        return{
-    ...state
-        }
-    
-    default: return state
-  
-  
-  */

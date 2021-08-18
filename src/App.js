@@ -9,6 +9,7 @@ import ProductDetails from './Pages/ProductDetails';
 import Cart from './Pages/Cart';
 import UserProfile from './Pages/UserProfile';
 import UserProtectedRoute from './protectedRoutes/UserProtectedRoutes'
+import OrderSuccessPage from './Pages/OrderSuccessPage';
 const App =()=> {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ const App =()=> {
        <Route exact path='/products/:id' component={ProductDetails}/>
        <Route exact path='/cart' component={Cart}/>
        <Route exact path='/profile/:sub' component={UserProfile}/>
+       <Route exact path='/order-success' component={OrderSuccessPage}/>
        <UserProtectedRoute path="/profile" component={UserProfile} />
       </Layout>
     </Switch>
