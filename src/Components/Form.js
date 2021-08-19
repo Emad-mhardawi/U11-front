@@ -8,6 +8,7 @@ import logo from "../Assets/Images/logo.svg";
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: "100px",
+    
   },
   form: {
      
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
     height: "60px",
   },
   paper:{
-      position:'relative'
+      position:'relative',
+      boxShadow:theme.palette.common.boxShadowLight
   }
 }));
 
