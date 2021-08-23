@@ -1,7 +1,7 @@
 import axiosInstance from "../../helpers/axios";
 import * as actionTypes from "./actionTypes";
 
-export const getProducts =()=>async(dispatch)=>{
+export const getProducts =(pageNumber)=>async(dispatch)=>{
 try{
 dispatch({
     type:actionTypes.PRODUCTS_FETCH_REQUEST
@@ -13,7 +13,7 @@ const config = {
     },
   };
 
-  const {data}= await axiosInstance.get('/getProducts', config)
+  const {data}= await axiosInstance.get(`/getProducts?page=${pageNumber}`, config)
   dispatch({
     type:actionTypes.PRODUCTS_FETCH_SUCCESS,
     payload: data
@@ -88,3 +88,65 @@ export const getRecentProducts =()=>async(dispatch)=>{
           });
     }
     }
+
+
+    export const filterProducts =(priceValues)=>async(dispatch)=>{
+      const  filtersQuery = priceValues ? `price[gte]=${priceValues[0]}&price[lte]=${priceValues[1]}` : '';
+      try{
+      dispatch({
+          type:actionTypes.PRODUCTS_FETCH_REQUEST
+      });
+      
+      const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+      console.log(priceValues)
+        const {data}= await axiosInstance.get(`/getProducts?${filtersQuery}`, config)
+        dispatch({
+          type:actionTypes.PRODUCTS_FETCH_SUCCESS,
+          payload: data
+      });
+      
+      }catch(error){
+          dispatch({
+              type: actionTypes.PRODUCTS_FETCH_FAIL,
+              payload:
+                error.response && error.response.data.message
+                  ? error.response.data.message
+                  : error.message,
+            });
+      }
+      }
+
+      export const sortProducts =(sortBy)=>async(dispatch)=>{
+        
+        const sortQuery = sortBy ? `sort=${sortBy}`:'';
+        try{
+        dispatch({
+            type:actionTypes.PRODUCTS_FETCH_REQUEST
+        });
+        
+        const config = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        
+          const {data}= await axiosInstance.get(`/getProducts?${sortQuery}`, config)
+          dispatch({
+            type:actionTypes.PRODUCTS_FETCH_SUCCESS,
+            payload: data
+        });
+        
+        }catch(error){
+            dispatch({
+                type: actionTypes.PRODUCTS_FETCH_FAIL,
+                payload:
+                  error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+              });
+        }
+        }

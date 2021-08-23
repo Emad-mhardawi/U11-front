@@ -11,6 +11,7 @@ import UserProfile from './Pages/UserProfile';
 import UserProtectedRoute from './protectedRoutes/UserProtectedRoutes'
 import OrderSuccessPage from './Pages/OrderSuccessPage';
 import ForgotPassword from './Pages/forgotPassword';
+import ResetPassword from './Pages/ResetPassword';
 const App =()=> {
   return (
     <div className="App">
@@ -25,6 +26,7 @@ const App =()=> {
        <Route exact path='/profile/:sub' component={UserProfile}/>
        <Route exact path='/order-success' component={OrderSuccessPage}/>
        <Route exact path='/recover-password' component={ForgotPassword}/>
+       <Route path="/resetPassword" component={ResetPassword} />
        <UserProtectedRoute path="/profile" component={UserProfile} />
        
       </Layout>
