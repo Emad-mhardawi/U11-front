@@ -7,11 +7,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import logo from '../Assets/Images/logo.svg'
 import IconButton  from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Badge, Box, Button, Container, Hidden, Tab, Tabs, Typography } from "@material-ui/core";
+import { Badge, Box, Button, Container, Hidden, Tab, Tabs } from "@material-ui/core";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux-store/actions/userActions";
 import { logout } from "../redux-store/actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +58,7 @@ const NavBar = (props) => {
 
   const dispatch = useDispatch();
   const userLogin= useSelector((state)=> state.userLogin);
-  const {loading, error, userInfo} = userLogin;
+  const {userInfo} = userLogin;
   const cart= useSelector((state)=> state.cart);
   const {cartProducts} = cart;
 
@@ -70,8 +69,8 @@ const NavBar = (props) => {
       <AppBar color='transparent' position='static' className={classes.root}>
         <Toolbar className={classes.toolbar}>
         <Container className={classes.container}>
-          {!matchesExtraSmall && <IconButton edge='start'>
-            <MenuIcon onClick={props.drawerOpenHandler}/>
+          {!matchesExtraSmall && <IconButton value='text' edge='start' onClick={props.drawerOpenHandler}>
+            <MenuIcon />
           </IconButton>}
           <Hidden smDown>
           <Box className={classes.logoBox}>

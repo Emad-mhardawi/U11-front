@@ -1,7 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import RemoveIcon from "@material-ui/icons/Remove";
-import AddIcon from "@material-ui/icons/Add";
 import  IconButton  from "@material-ui/core/IconButton";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,7 +8,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import emptyCartImage from "../Assets/Images/emptyCart.svg";
 import ProductQtyButton from "../Components/productQtyButton";
 import { Box, Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
@@ -121,11 +118,12 @@ const CartProductsTable = (props) => {
                     </TableHead>
                     <TableBody>
                       {props.cartProducts.map((product) => (
-                        <TableRow className={classes.row}>
+                        <TableRow className={classes.row} key={product.id}>
                           <TableCell className={classes.cell}>
                             <div className={classes.product}>
                               <div className={classes.imgContainer}>
                                 <img
+                                  alt ='product'
                                   className={classes.img}
                                   src={product.imageUrl}
                                 />

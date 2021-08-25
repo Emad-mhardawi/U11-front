@@ -46,7 +46,7 @@ const Shop = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const fetchProducts = useSelector((state) => state.fetchProducts);
-  const { loading, error, products, pagesCount } = fetchProducts;
+  const { loading , products, pagesCount } = fetchProducts;
   const [filtersDrawerOpen, setFiltersDrawerOpen ] = useState(false);
   useEffect(() => {
     dispatch(getProducts());
@@ -84,7 +84,7 @@ const Shop = () => {
         {products.length!==0 ? 
         <Grid container spacing={6} justifyContent="center" alignItems="center">
           {products.map((product) => (
-            <Grid key={product._id} item item md={3} sm={4} xs={12}>
+            <Grid key={product._id}  item md={3} sm={4} xs={12}>
               <ProductCard product={product} addtocart={()=>addToCartHandler(product)} />
             </Grid>
           ))}

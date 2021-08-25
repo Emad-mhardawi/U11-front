@@ -142,7 +142,7 @@ const checkOut =async()=>{
               : 
           (<div className={classes.emptyCart}>
               <div className={classes.emptyCartImageBox}>
-                <img className={classes.emptyCartImage} src={emptyCartImage}/>
+                <img alt='empty shopping cart' className={classes.emptyCartImage} src={emptyCartImage}/>
               </div>
               <Typography variant="h5">Cart is empty</Typography>
            </div>
@@ -150,7 +150,7 @@ const checkOut =async()=>{
         </Paper>
         
         <Button
-          variant="inherent"
+          
           color="primary"
           className={classes.button}
           component={Link}

@@ -1,18 +1,11 @@
-import { Switch, Route, Link } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
-import Form from "../Components/Form";
 import { makeStyles } from "@material-ui/core/styles";
-import {Avatar, Box, Breadcrumbs,Container,FormControlLabel,Grid,Paper,} from "@material-ui/core";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { signupInputsValidation } from "../utils/validate";
-import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../redux-store/actions/userActions";
-import Alert from "@material-ui/lab/Alert";
+import {Avatar, Box,Grid,Paper,} from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
  

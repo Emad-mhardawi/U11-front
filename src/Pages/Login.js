@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect} from "react";
 import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
@@ -35,7 +35,7 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userLogin= useSelector((state)=> state.userLogin);
-  const {loading, error, userInfo} = userLogin;
+  const {error, userInfo} = userLogin;
 
    // functions that come with react form hook
   // to handle input fields and form submission 

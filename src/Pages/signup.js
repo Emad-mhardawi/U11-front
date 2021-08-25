@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { Redirect, useHistory } from "react-router";
+import React from "react";
+
 import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
@@ -34,7 +34,7 @@ const Signup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const  userSignup = useSelector((state)=>state.userSignup)
-  let {loading, userInfo, error} = userSignup;
+  let { error} = userSignup;
 
 
 // functions that come with react form hook

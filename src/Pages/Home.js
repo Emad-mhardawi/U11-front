@@ -4,7 +4,6 @@ import Header from "../Components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecentProducts } from "../redux-store/actions/productActions";
-import { Link } from "react-router-dom";
 import ProductCard from "../Components/ProductCard";
 import CustomerSupportCard from "../Components/CustomerSupportCard";
 import { addToCart } from "../redux-store/actions/cartActions";
@@ -33,11 +32,11 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const fetchRecentProducts = useSelector((state) => state.fetchRecentProducts);
-  const { loading, error, recentProducts } = fetchRecentProducts;
+  const { recentProducts } = fetchRecentProducts;
 
   useEffect(() => {
     dispatch(getRecentProducts());
-  }, []);
+  },[]);
 
      /// add product to cart by passing the product object and dispatch a redux action
      const addToCartHandler = (product)=>{

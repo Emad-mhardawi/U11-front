@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button } from "@material-ui/core";
 
@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(2),
     padding: theme.spacing(2),
-    borderRadius: theme.shape.borderRadius,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",

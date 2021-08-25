@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -100,13 +100,6 @@ const useStyles = makeStyles((theme) => ({
     value: PropTypes.any.isRequired,
   };
 
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
-  
 
 
 

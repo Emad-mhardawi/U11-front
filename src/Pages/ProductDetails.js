@@ -88,7 +88,7 @@ const ProductDetails = (props)=>{
     const classes=useStyles();
     const dispatch = useDispatch();
   const fetchProduct= useSelector((state)=> state.getProduct);
-  const {loading, error, product} = fetchProduct;
+  const { product} = fetchProduct;
     
 
   
@@ -124,7 +124,7 @@ return(
     <Grid container  spacing={2}>
         <Grid className={classes.contentLeft} xs={12} sm={12} md={6}  item>
           <div className={classes.imgContainer}>
-          <img className={classes.img} src={product.product.imageUrl}/>
+          <img  alt='product' className={classes.img} src={product.product.imageUrl}/>
           </div>
         </Grid>
 
