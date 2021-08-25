@@ -14,6 +14,17 @@ export const signupInputsValidation = yup.object().shape({
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'passwords must match'),
 })
 
+export const ForgotPasswordEmailValidation = yup.object().shape({
+    email: yup.string().email().required(),
+    
+})
+
+export const ResetPasswordEmailValidation = yup.object().shape({
+    password: yup.string().min(6).required(),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'passwords must match'),
+    
+})
+
 
 export const passwordsValidation = yup.object().shape({
     password: yup.string().min(6).required(),
