@@ -69,27 +69,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-
-
-
-
-/*
-    <Grid container direction='row-reverse' spacing={1}>
-          <Grid className={classes.right} item xs={12} sm={6}>
-            <img className={classes.image} src={heroImage}/>
-          </Grid>
-          <Grid className={classes.left} item item xs={12} sm={6}>
-            <Box>
-              <Typography variant='h2' className={classes.text}>
-              Experience your music like never before.
-              </Typography>
-              <Button disableElevation className={classes.button} variant='contained' color='secondary' size='large'>Descover</Button>
-            </Box>
-          </Grid>
-        </Grid>
-        */
-
-

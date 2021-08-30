@@ -19,12 +19,22 @@ export const ForgotPasswordEmailValidation = yup.object().shape({
     
 })
 
+export const updateProfileEmailValidation = yup.object().shape({
+    email: yup.string().email(),
+    
+})
+
 export const ResetPasswordEmailValidation = yup.object().shape({
     password: yup.string().min(6).required(),
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'passwords must match'),
     
 })
 
+export const changePasswordValidation = yup.object().shape({
+    newPassword: yup.string().min(6).required(),
+    confirmNewPassword: yup.string().oneOf([yup.ref('newPassword'), null], 'passwords must match'),
+    
+})
 
 export const passwordsValidation = yup.object().shape({
     password: yup.string().min(6).required(),

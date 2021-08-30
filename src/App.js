@@ -27,7 +27,7 @@ const App =()=> {
        <Route exact path='/order-success' component={OrderSuccessPage}/>
        <Route exact path='/recover-password' component={ForgotPassword}/>
        <Route path="/resetPassword" component={ResetPassword} />
-       <UserProtectedRoute path="/profile" component={UserProfile} />
+       <UserProtectedRoute exact path="/profile" component={UserProfile} />
        
       </Layout>
     </Switch>

@@ -86,7 +86,7 @@ const NavBar = (props) => {
           </Tabs>
           }
           <Box className={classes.navRight}>
-            <Badge badgeContent={cartProducts.length} color="primary" component={Link} to='/cart'>
+            <Badge badgeContent={cartProducts.length}  color="primary" component={Link} to='/cart'>
               <ShoppingCartOutlinedIcon style={{color:'inherit'}}/>
             </Badge>
             <Hidden xsDown>
