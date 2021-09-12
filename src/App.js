@@ -12,6 +12,7 @@ import UserProtectedRoute from './protectedRoutes/UserProtectedRoutes'
 import OrderSuccessPage from './Pages/OrderSuccessPage';
 import ForgotPassword from './Pages/forgotPassword';
 import ResetPassword from './Pages/ResetPassword';
+import About from './Pages/About';
 const App =()=> {
   return (
     <div className="App">
@@ -23,11 +24,11 @@ const App =()=> {
        <Route exact path='/signup' component={Signup}/>
        <Route exact path='/products/:id' component={ProductDetails}/>
        <Route exact path='/cart' component={Cart}/>
-       <Route exact path='/profile/:sub' component={UserProfile}/>
+       <Route exact path='/ABOUT' component={About}/>
        <Route exact path='/order-success' component={OrderSuccessPage}/>
        <Route exact path='/recover-password' component={ForgotPassword}/>
        <Route path="/resetPassword" component={ResetPassword} />
-       <UserProtectedRoute exact path="/profile" component={UserProfile} />
+       <UserProtectedRoute exact path="/profile/:sub" component={UserProfile} />
        
       </Layout>
     </Switch>

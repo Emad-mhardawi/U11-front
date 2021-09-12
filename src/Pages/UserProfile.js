@@ -91,7 +91,7 @@ const UserProfile = () => {
 				</Tabs>
 				
 				<Switch>
-					<Route path='/profile/' component={(props=> <ProfileGeneral user={user} />)} />
+					<Route exact path='/profile/general' component={(props=> <ProfileGeneral user={user} />)} />
 					<Route exact path='/profile/security' component={Security} />
 				</Switch>
 			</Container>

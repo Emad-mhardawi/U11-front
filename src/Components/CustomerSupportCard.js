@@ -13,15 +13,23 @@ const useStyles = makeStyles((theme) => ({
       alignItems:'center'
     }
   },
+  container:{
+    padding:theme.spacing(4),
+    marginTop:theme.spacing(4),
+    marginBottom:'3rem',
+    background:'#F29F05',
+    borderRadius:'50px'
+
+  },
   icon: {
-    fontSize: "5rem",
+    fontSize: "3.5rem",
     borderRadius: "10px",
     padding: theme.spacing(1),
     color: theme.palette.primary.main,
     background: "#e8eaf6",
   },
   title:{
-    fontSize:'2rem',
+    fontSize:'1.5rem',
     paddingTop:theme.spacing(1),
     paddingBottom:theme.spacing(1),
     fontWeight:'bold',
@@ -29,12 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
 desc:{
   paddingRight:theme.spacing(2),
-  fontSize:'18px',
-  color:theme.palette.common.mediumGrey,
+  fontSize:'1rem',
   [theme.breakpoints.down('xs')]:{
     textAlign:'center'
-  }
-  
+  },
+  color:'black'
 }
 }));
 
@@ -42,7 +49,7 @@ const CustomerSupportCard = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={4} className={classes.container}>
       <Grid item xs={12} sm={4}>
         <Box className={classes.root}>
           <LocalShippingIcon className={classes.icon} />

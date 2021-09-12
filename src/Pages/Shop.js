@@ -13,6 +13,7 @@ import PaginationComponent from "../Components/Pagination";
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: "50px",
+    marginBottom:theme.spacing(12)
   },
   loader: {
     position: "absolute",

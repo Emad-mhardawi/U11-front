@@ -9,7 +9,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Box } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
-import ContactMailIcon from '@material-ui/icons/ContactMail';
 import StoreIcon from '@material-ui/icons/Store';
 import InfoIcon from '@material-ui/icons/Info';
 import { useDispatch, useSelector } from "react-redux";
@@ -64,8 +63,8 @@ const SideDrawer = (props) => {
         <Link className={classes.link} to ='/signup' onClick={props.drawerOpenHandler}>Sign up</Link>
       </Box>:
       <Box className={classes.box}>
-        <Link className={classes.link} to='/profile' onClick={props.drawerOpenHandler}>profile</Link>
-        <Link 
+        <Link className={classes.link} to='/profile/general' onClick={props.drawerOpenHandler}>profile</Link>
+        <Link to='/'
           className={classes.link} 
           onClick={()=>{props.drawerOpenHandler(); dispatch(logout())}}>Log out
         </Link>
@@ -92,12 +91,6 @@ const SideDrawer = (props) => {
             <InfoIcon color='primary'/>
           </ListItemIcon>
 					<ListItemText primary="About" />
-        </ListItem>
-				<ListItem button component={Link} to='/contact'  onClick={props.drawerOpenHandler}>
-          <ListItemIcon>
-            <ContactMailIcon color='primary'/>
-          </ListItemIcon>
-					<ListItemText primary="Contact Us" />
         </ListItem>
       </List>
     </Drawer>

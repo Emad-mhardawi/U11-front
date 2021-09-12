@@ -1,10 +1,13 @@
 import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import heroImage from '../Assets/Images/hero2.png'
+
+////styles
 const useStyles = makeStyles((theme) => ({
   root: {
    background: theme.palette.primary.main,
-    color:'white',
+   color:'white',
   },
 
   right:{
@@ -14,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]:{
       height:'25rem'
     }
-  },
-  left:{
-
   },
   img:{
     width:'100%',
@@ -40,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize:'3rem'
     }
   }
-
-
 }));
 
 const Header = () => {
@@ -59,7 +57,7 @@ const Header = () => {
               <Typography variant='h2' className={classes.text}>
               Experience your music like never before.
               </Typography>
-              <Button disableElevation className={classes.button} variant='contained' color='secondary' size='large'>Descover</Button>
+              <Button disableElevation className={classes.button} variant='contained' color='secondary' component={Link} to='/shop' size='large'>Go to Shop</Button>
             </Box>
           </Grid>
         </Grid>

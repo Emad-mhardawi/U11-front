@@ -4,7 +4,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import Rating from '@material-ui/lab/Rating';
-import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
@@ -64,11 +63,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop:theme.spacing(4),
     marginBottom:theme.spacing(4)
   },
-  pagination:{
-    display:'flex',
-    justifyContent:'center',
-    margin:theme.spacing(4)
-  }
 }));
 
 
@@ -118,20 +112,20 @@ const ProductReviews = (props)=>{
     
 return(
   <Paper className={classes.paper}>
-    <Tabs className={classes.tabs} onChange={handleChange}> 
-      <Tab className={classes.tab} label={`Review (${props.productDetails.all_reviews_count})`} />
-      <Tab className={classes.tab} label="Description" />
+    <Tabs  value={value} className={classes.tabs} onChange={handleChange}> 
+      <Tab   className={classes.tab} label={`Review (${props.productDetails.all_reviews_count})`} />
+      <Tab  className={classes.tab} label="Description" />
     </Tabs>
-    <TabPanel value={value} index={0}>
+    <TabPanel component='div'  value={value} index={0}>
       <Grid container justifyContent='center' spacing={4}>
-        <Grid item xs='12' md='4' className={classes.averageRating}>
+        <Grid item xs={12} md={4} className={classes.averageRating}>
           <Typography variant='h6'>Average rating</Typography>
           <Typography color='secondary' variant='h3'>{props.productDetails.averageStarCount}/5</Typography>
           <Rating size='large' readOnly value={+props.productDetails.averageStarCount}/>
           <Typography>{props.productDetails.all_reviews_count} review(s)</Typography>
         </Grid>
 
-        <Grid item xs='12' md='4' className={classes.middle}>
+        <Grid item xs={12} md={4} className={classes.middle}>
           <div className={classes.barContainer}>
             <Typography variant='body1'> 5 stars</Typography>
             <LinearProgress
@@ -178,7 +172,7 @@ return(
           </div>
         </Grid>
 
-        <Grid className={classes.writeReview}  item xs='12' md='4'>
+        <Grid className={classes.writeReview}  item xs={12} md={4}>
           <Button
             className={classes.button}
             variant='outlined'
@@ -195,12 +189,10 @@ return(
         {showReviewForm && <ReviewForm HideReviewForm={HideReviewForm} productId={props.productDetails.product._id}/>}
         
         {props.productDetails.reviews.map((review)=>(
-          <Review review={review}/>
+          <Review key={review._id} review={review}/>
         ))}
         
-      <div className={classes.pagination}>
-        <Pagination  count={10} color="primary" />
-      </div>
+      
       
     </TabPanel>
       <TabPanel value={value} index={1}>

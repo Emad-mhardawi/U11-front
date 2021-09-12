@@ -82,7 +82,6 @@ const NavBar = (props) => {
             <Tab className={classes.tab} label='Home' component={Link} to='/' />
             <Tab className={classes.tab} label='Shop' component={Link} to='/shop'/>
             <Tab className={classes.tab} label='About' component={Link} to='/about' />
-            <Tab className={classes.tab} label='Contact Us' component={Link} to='/contact' />
           </Tabs>
           }
           <Box className={classes.navRight}>
@@ -108,7 +107,7 @@ const NavBar = (props) => {
               variant='contained' 
               disableElevation
               component={Link}
-              to='/profile'
+              to='/profile/general'
               >
                 PROFILE
               </Button>

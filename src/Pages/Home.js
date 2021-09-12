@@ -8,9 +8,11 @@ import ProductCard from "../Components/ProductCard";
 import CustomerSupportCard from "../Components/CustomerSupportCard";
 import { addToCart } from "../redux-store/actions/cartActions";
 
+///styles
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(8),
+    marginBottom:theme.spacing(12)
   },
   recent: {
     textAlign: "center",
@@ -19,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+   
   },
   divider: {
     width: "10rem",

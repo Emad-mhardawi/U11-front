@@ -36,13 +36,13 @@ const Review = (props)=>{
  return(
      <div className={classes.root}>
          <Grid container spacing={2} >
-             <Grid className={classes.left} item md='3'>
+             <Grid className={classes.left} item md={3}>
                  <Avatar alt='user avatar' className={classes.avatar}/>
                  <Typography variant='body2'>Emad Mhardawi</Typography>
                  <Typography variant='body2'>{props.review.createdAt}</Typography>
              </Grid>
 
-             <Grid className={classes.right} item md='9'>
+             <Grid className={classes.right} item md={9}>
                  <Rating readOnly value={props.review.starsCount}/>
                  <Typography>{props.review.comment}</Typography>
              </Grid>
