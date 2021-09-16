@@ -100,16 +100,16 @@ const NavBar = (props) => {
               >
                 Log in
               </Button>
-              :
+              : 
               <Button
               className={classes.button}
               color='primary'  
               variant='contained' 
               disableElevation
               component={Link}
-              to='/profile/general'
+              to={userInfo.isAdmin ? '/admin/dashboard':'/profile/general'} 
               >
-                PROFILE
+                {userInfo.isAdmin ? 'Dashboard' : 'Profile'}
               </Button>
             }
 

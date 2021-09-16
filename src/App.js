@@ -9,10 +9,12 @@ import ProductDetails from './Pages/ProductDetails';
 import Cart from './Pages/Cart';
 import UserProfile from './Pages/UserProfile';
 import UserProtectedRoute from './protectedRoutes/UserProtectedRoutes'
+import AdminProtectedRoute from './protectedRoutes/AdminRoutes'
 import OrderSuccessPage from './Pages/OrderSuccessPage';
 import ForgotPassword from './Pages/forgotPassword';
 import ResetPassword from './Pages/ResetPassword';
 import About from './Pages/About';
+import Dashboard from './Pages/Dashboard';
 const App =()=> {
   return (
     <div className="App">
@@ -29,7 +31,7 @@ const App =()=> {
        <Route exact path='/recover-password' component={ForgotPassword}/>
        <Route path="/resetPassword" component={ResetPassword} />
        <UserProtectedRoute exact path="/profile/:sub" component={UserProfile} />
-       
+       <AdminProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
       </Layout>
     </Switch>
     </div>

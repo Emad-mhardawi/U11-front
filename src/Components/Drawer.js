@@ -63,7 +63,12 @@ const SideDrawer = (props) => {
         <Link className={classes.link} to ='/signup' onClick={props.drawerOpenHandler}>Sign up</Link>
       </Box>:
       <Box className={classes.box}>
-        <Link className={classes.link} to='/profile/general' onClick={props.drawerOpenHandler}>profile</Link>
+        <Link className={classes.link}
+          to={userInfo.isAdmin ? '/admin/dashboard':'/profile/general'} 
+          onClick={props.drawerOpenHandler}
+          >
+            {userInfo.isAdmin ? 'Dashboard' : 'Profile'}
+        </Link>
         <Link to='/'
           className={classes.link} 
           onClick={()=>{props.drawerOpenHandler(); dispatch(logout())}}>Log out

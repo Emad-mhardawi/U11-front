@@ -52,5 +52,16 @@ export const reviewFormValidation = yup.object().shape({
     comment: yup.string().required("you can't add an empty comment"),
     email: yup.string().email().required(),
     name: yup.string().required(),
-    starsCount: yup.string().required()
-})
+    starsCount: yup.string().required('you have to add a stars value to post your review')
+});
+
+
+export const addProductFormValidation = yup.object().shape({
+    productName: yup.string().required(),
+    inStock: yup.number().required().positive().integer(),
+    price: yup.number().required().positive().integer(),
+    description: yup.string().required(),
+    imageUrl: yup.string().required(),
+    brand: yup.string().required(),
+
+});

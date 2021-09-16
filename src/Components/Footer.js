@@ -43,9 +43,9 @@ const Footer = (props) => {
   return (
       <div className={classes.root}>
           <Box className={classes.links}>
-              <Link className={classes.link}>Home</Link>
-              <Link className={classes.link}>Shop</Link>
-              <Link className={classes.link}>About</Link>
+              <Link className={classes.link} to='/home'>Home</Link>
+              <Link className={classes.link} to='/shop'>Shop</Link>
+              <Link className={classes.link} to='/about'>About</Link>
           </Box>
           <img className={classes.logo} src={logo} alt='logo'/>
           <Typography className={classes.copy} variant='body1'>© Copyright by Emad Mhardawi. assignment for Chas Academy.</Typography>
