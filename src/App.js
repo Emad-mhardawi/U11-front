@@ -15,6 +15,9 @@ import ForgotPassword from './Pages/forgotPassword';
 import ResetPassword from './Pages/ResetPassword';
 import About from './Pages/About';
 import Dashboard from './Pages/Dashboard';
+import OrderFailPage from './Pages/OrderFailPage';
+
+
 const App =()=> {
   return (
     <div className="App">
@@ -28,6 +31,7 @@ const App =()=> {
        <Route exact path='/cart' component={Cart}/>
        <Route exact path='/ABOUT' component={About}/>
        <Route exact path='/order-success' component={OrderSuccessPage}/>
+       <Route exact path='/order-failed' component={OrderFailPage}/>
        <Route exact path='/recover-password' component={ForgotPassword}/>
        <Route path="/resetPassword" component={ResetPassword} />
        <UserProtectedRoute exact path="/profile/:sub" component={UserProfile} />
