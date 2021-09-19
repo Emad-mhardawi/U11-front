@@ -73,7 +73,7 @@ export const signup =
           payload: data
       });
 
-    } catch (error) {
+    }catch (error) {
 
         dispatch({
             type:actionTypes.USER_SIGNUP_FAIL,

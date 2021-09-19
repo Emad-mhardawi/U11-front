@@ -32,11 +32,11 @@ export const userSignupReducer =(state = {userInfo:null}, action)=>{
         case actionTypes.USER_SIGNUP_REQUEST:
             return{loading: true}
 
-        case actionTypes.USER_LOGIN_SUCCESS:
-            return{loading: false, userInfo: action.payload}
+        case actionTypes.USER_SIGNUP_SUCCESS:
+            return{loading: false, userInfo: action.payload, success:true}
         
         case actionTypes.USER_SIGNUP_FAIL:
-            return{ loading: false, error: action.payload }
+            return{ loading: false, userInfo:null, error: action.payload,success:false }
     
         default: return state;
     }

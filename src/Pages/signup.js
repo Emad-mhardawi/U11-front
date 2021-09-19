@@ -1,5 +1,5 @@
 import React from "react";
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import  Button  from "@material-ui/core/Button";
 import Divider  from "@material-ui/core/Divider";
 import  Typography  from "@material-ui/core/Typography";
@@ -34,7 +34,7 @@ const Signup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const  userSignup = useSelector((state)=>state.userSignup)
-  let { error} = userSignup;
+  let { userInfo, loading,error} = userSignup;
 
 
 // functions that come with react form hook
@@ -52,7 +52,9 @@ const Signup = () => {
   return (
     <div className={classes.root}>
       <Form onSubmit={handleSubmit(submit)} form_title='Register' desc='Register new account in our platform'>
+      {loading  && <CircularProgress/>}
       {error && <Alert  severity="error" >{error} </Alert> }
+      {userInfo && <Alert  severity="success" >your account has been created</Alert> }
         <TextField
           size="medium"
           variant="outlined"

@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {loginInputsValidation} from '../utils/validate';
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux-store/actions/userActions";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userLogin= useSelector((state)=> state.userLogin);
-  const {error, userInfo} = userLogin;
+  const {loading ,error, userInfo} = userLogin;
 
    // functions that come with react form hook
   // to handle input fields and form submission 
@@ -58,12 +59,10 @@ const Login = () => {
   return (
     <div className={classes.root}>
       <Form form_title='Log in' desc='Log in to our platform' onSubmit={handleSubmit(submit)}>
-      
+      {loading  && <CircularProgress/>}
       {error && <Alert  severity="error" >{error} </Alert> }
-        
-      
-     
-        <TextField
+
+      <TextField
         name="email"
         {...register("email")}
           size="medium"
